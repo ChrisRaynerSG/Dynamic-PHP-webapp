@@ -1,0 +1,48 @@
+# Ignore Composer dependencies
+/vendor/
+/composer.lock
+
+# Ignore environment files
+.env
+
+# Ignore PHPUnit test results
+/phpunit.xml
+/phpunit.xml.dist
+/tests/_output/
+/tests/_support/_generated/
+
+# Ignore IDE specific files
+/.idea/
+/.vscode/
+
+# Ignore build artifacts
+/build/
+/node_modules/
+
+# Ignore log files
+/logs/
+/*.log
+
+# Ignore cache directories
+/cache/
+/tmp/
+/storage/logs/
+/storage/framework/cache/
+/storage/framework/sessions/
+/storage/framework/views/
+
+# Ignore session files
+*.session
+
+# Ignore Laravel framework specific files (if applicable)
+bootstrap/cache/
+.env.backup
+.env.production
+.env.testing
+
+# Ignore SFTP config file
+.sftp-config.json
+
+# Ignore local server files
+Homestead.yaml
+Homestead.json
