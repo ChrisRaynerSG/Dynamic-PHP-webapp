@@ -25,7 +25,7 @@ class Router{
         $requestedUri = $this->formatUri($_SERVER['REQUEST_URI']);
         $requestedMethod = $_SERVER['REQUEST_METHOD'];
 
-        foreach($this->$routes as $route){
+        foreach($this->routes as $route){
             if($requestedMethod === $route['method'] && $requestedUri === $route['uri']){
 
                 if(is_callable($route['callback'])){
