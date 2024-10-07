@@ -23,7 +23,7 @@ class ReviewController{
         $ratingFilter = isset($_GET['rating']) ? $_GET['rating'] : '';
 
         $reviews = $this->reviewRepository->getAllReviews($ratingFilter, $limit, ($page-1)*$limit);
-        $totalPages = $this->reviewRepository->getReviewCount($ratingFilter);
+        $totalPages = $this->reviewRepository->getTotalReviews($ratingFilter);
         $totalPages = ceil($totalPages / $limit);
 
         require "../App/Views/Reviews.php";

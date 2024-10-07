@@ -61,6 +61,6 @@ class ReviewRepository{
         }
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $result(['count']);
+        return $result['count'];
     }
 }
