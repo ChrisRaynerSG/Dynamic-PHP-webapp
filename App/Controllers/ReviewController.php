@@ -6,13 +6,12 @@ use App\Database\Database;
 use App\Models\ReviewModel;
 
 class ReviewController{
-    // private $reviewModel;
 
-    // public function __construct(){
-    //     $database = new Database();
+    private $reviewModel;
 
-    //     $this->reviewModel = new Review($database->connect());
-    // }
+    public function __construct(){
+        $database = new Database();
+    }
 
     public function index(){
         require "../App/Views/Reviews.php";

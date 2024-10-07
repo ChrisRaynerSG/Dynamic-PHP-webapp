@@ -11,6 +11,7 @@
     <meta name="description" content="Rent a beautiful lodge for your holidays. Book online, check availability, and explore nearby attractions.">
     <title>Rayner Lodge</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 <body>
 

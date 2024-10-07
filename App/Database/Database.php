@@ -14,12 +14,12 @@ class Database{
     private $password;
     private $pdo;
 
-    public function __construct($host, $database, $username, $password, $port){
-        $this->host = $host;
-        $this->database = $database;
-        $this->username = $username;
-        $this->password = $password;
-        $this->port = $port;
+    public function __construct(){
+        $this->host = getenv('DB_HOST');
+        $this->database = getenv('DB_NAME');
+        $this->username = getenv('DB_USER');
+        $this->password = getenv('DB_PASS');
+        $this->port = getenv('DB_PORT');
     }
 
     public function connect(){
