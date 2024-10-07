@@ -15,17 +15,16 @@ class ReviewController{
     }
 
     public function index(){
-
         $limit = 10;
         $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
         $page = max($page, 1);
-
+    
         $ratingFilter = isset($_GET['rating']) ? $_GET['rating'] : '';
-
-        $reviews = $this->reviewRepository->getAllReviews($ratingFilter, $limit, ($page-1)*$limit);
-        $totalPages = $this->reviewRepository->getTotalReviews($ratingFilter);
-        $totalPages = ceil($totalPages / $limit);
-
+    
+        $reviews = $this->reviewRepository->getAllReviews($ratingFilter, $limit, ($page - 1) * $limit);
+        $totalReviews = $this->reviewRepository->getTotalReviews($ratingFilter);
+        $totalPages = ceil($totalReviews / $limit);
+    
         require "../App/Views/Reviews.php";
     }
 

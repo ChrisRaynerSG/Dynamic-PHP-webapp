@@ -28,35 +28,34 @@ class ReviewRepository{
         ]);
     }
 
-    public function getAllReviews($rating = '', $limit = 10, $offset=0){
+    public function getAllReviews($rating = '', $limit = 10, $offset = 0){
         $sql = "SELECT * FROM reviews";
-        if($rating!==''){
+        if ($rating !== '') {
             $sql .= ' WHERE rating = :rating';
         }
         $sql .= ' ORDER BY created_at DESC LIMIT :limit OFFSET :offset';
-
+    
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
-        $stmt->bindParam(':offset',$offset, PDO::PARAM_INT);
-
-        if($rating!==''){
-            $stmt->bindParam(':rating',$rating, PDO::PARAM_INT);
+        $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+    
+        if ($rating !== '') {
+            $stmt->bindParam(':rating', $rating, PDO::PARAM_INT);
         }
-
+    
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-
+    
     public function getTotalReviews($rating = ''){
-        $sql = "SELECT COUNT(*) FROM reviews";
-        if($rating !== ''){
-            $sql .= 'WHERE rating = :rating';
-
+        $sql = "SELECT COUNT(*) as count FROM reviews";
+        if ($rating !== '') {
+            $sql .= ' WHERE rating = :rating';
         }
-
+    
         $stmt = $this->pdo->prepare($sql);
-
-        if($rating!==''){
+    
+        if ($rating !== '') {
             $stmt->bindParam(':rating', $rating, PDO::PARAM_INT);
         }
         $stmt->execute();

@@ -68,6 +68,21 @@ $error = $error ?? '';
     </form>
 
     <?php if ($reviews): ?>
+        <nav aria-label="Review pagination">
+            <ul class="pagination justify-content-center">
+                <li class="page-item <?= ($page <= 1) ? 'disabled' : '' ?>">
+                    <a class="page-link" href="?<?= http_build_query(array_merge($_GET, ['page' => $page - 1])) ?>" tabindex="-1">Previous</a>
+                </li>
+                <?php for ($p = 1; $p <= $totalPages; $p++): ?>
+                    <li class="page-item <?= ($p == $page) ? 'active' : '' ?>">
+                        <a class="page-link" href="?<?= http_build_query(array_merge($_GET, ['page' => $p])) ?>"><?= $p ?></a>
+                    </li>
+                <?php endfor; ?>
+                <li class="page-item <?= ($page >= $totalPages) ? 'disabled' : '' ?>">
+                    <a class="page-link" href="?<?= http_build_query(array_merge($_GET, ['page' => $page + 1])) ?>">Next</a>
+                </li>
+            </ul>
+        </nav>
         <?php foreach ($reviews as $review): ?>
             <div class="card mb-3">
                 <div class="card-body">
@@ -87,15 +102,15 @@ $error = $error ?? '';
         <nav aria-label="Review pagination">
             <ul class="pagination justify-content-center">
                 <li class="page-item <?= ($page <= 1) ? 'disabled' : '' ?>">
-                    <a class="page-link" href="?<?= http_build_query(array_merge($_GET, ['page' => $page -1])) ?>" tabindex="-1">Previous</a>
+                    <a class="page-link" href="?<?= http_build_query(array_merge($_GET, ['page' => $page - 1])) ?>" tabindex="-1">Previous</a>
                 </li>
-                <?php for($p=1; $p <= $totalPages; $p++): ?>
+                <?php for ($p = 1; $p <= $totalPages; $p++): ?>
                     <li class="page-item <?= ($p == $page) ? 'active' : '' ?>">
                         <a class="page-link" href="?<?= http_build_query(array_merge($_GET, ['page' => $p])) ?>"><?= $p ?></a>
                     </li>
                 <?php endfor; ?>
                 <li class="page-item <?= ($page >= $totalPages) ? 'disabled' : '' ?>">
-                    <a class="page-link" href="?<?= http_build_query(array_merge($_GET, ['page' => $page +1])) ?>">Next</a>
+                    <a class="page-link" href="?<?= http_build_query(array_merge($_GET, ['page' => $page + 1])) ?>">Next</a>
                 </li>
             </ul>
         </nav>
@@ -104,33 +119,34 @@ $error = $error ?? '';
     <?php endif; ?>
 
     <div class="card mt-5">
-        <div class="card-body">
-            <h5 class="card-title">Submit a Review</h5>
-            <?php if (!empty($error)): ?>
-                <div class="alert alert-danger"><?= htmlspecialchars($error) ?></div>
-            <?php endif; ?>
-            <form method="POST" action="/review/create">
-                <div class="mb-3">
-                    <label for="name" class="form-label">Your Name</label>
-                    <input type="text" class="form-control" id="name" name="name" required maxlength="100" value="<?= isset($_POST['name']) ? htmlspecialchars($_POST['name']) : '' ?>">
+    <div class="card-body">
+        <h5 class="card-title">Submit a Review</h5>
+        <?php if (!empty($error)): ?>
+            <div class="alert alert-danger"><?= htmlspecialchars($error) ?></div>
+        <?php endif; ?>
+        <form method="POST" action="/review/create">
+            <div class="mb-3">
+                <label for="name" class="form-label">Your Name</label>
+                <input type="text" class="form-control" id="name" name="name" required maxlength="100" value="<?= isset($_POST['name']) ? htmlspecialchars($_POST['name']) : '' ?>">
+            </div>
+            <div class="mb-3">
+                <label for="rating" class="form-label">Rating</label>
+                <div id="star-rating" class="star-rating">
+                    <?php for ($i = 1; $i <= 5; $i++): ?>
+                        <i class="bi bi-star" data-rating="<?= $i ?>"></i>
+                    <?php endfor; ?>
                 </div>
-                <div class="mb-3">
-                    <label for="rating" class="form-label">Rating</label>
-                    <select class="form-select" id="rating" name="rating" required>
-                        <option value="">Choose...</option>
-                        <?php for($i=1; $i<=5; $i++): ?>
-                            <option value="<?= $i ?>" <?= (isset($_POST['rating']) && $_POST['rating'] == $i) ? 'selected' : '' ?>><?= $i ?> Star<?= $i > 1 ? 's' : '' ?></option>
-                        <?php endfor; ?>
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <label for="comment" class="form-label">Your Review</label>
-                    <textarea class="form-control" id="comment" name="comment" rows="3" required maxlength="1000"><?= isset($_POST['comment']) ? htmlspecialchars($_POST['comment']) : '' ?></textarea>
-                </div>
-                <button type="submit" name="submit_review" class="btn btn-success">Post Review</button>
-            </form>
-        </div>
+                <!-- Hidden input to store the selected rating value -->
+                <input type="hidden" name="rating" id="rating" required>
+            </div>
+            <div class="mb-3">
+                <label for="comment" class="form-label">Your Review</label>
+                <textarea class="form-control" id="comment" name="comment" rows="3" required maxlength="1000"><?= isset($_POST['comment']) ? htmlspecialchars($_POST['comment']) : '' ?></textarea>
+            </div>
+            <button type="submit" name="submit_review" class="btn btn-success">Post Review</button>
+        </form>
     </div>
+</div>
 </div>
 
 <footer class="bg-light text-center text-lg-start">
@@ -153,6 +169,33 @@ $error = $error ?? '';
         &copy; 2024 Rayner Lodge. All Rights Reserved.
     </div>
 </footer>
+
+<script>
+    // JavaScript to handle star rating click events
+    document.addEventListener('DOMContentLoaded', function() {
+        const stars = document.querySelectorAll('.star-rating i');
+        const ratingInput = document.getElementById('rating');
+
+        stars.forEach(star => {
+            star.addEventListener('click', function() {
+                const rating = this.getAttribute('data-rating');
+
+                // Update the hidden input with the selected rating
+                ratingInput.value = rating;
+
+                // Remove 'bi-star-fill' class from all stars
+                stars.forEach(s => s.classList.remove('bi-star-fill'));
+                stars.forEach(s => s.classList.add('bi-star'));
+
+                // Add 'bi-star-fill' class to all stars up to the selected rating
+                for (let i = 0; i < rating; i++) {
+                    stars[i].classList.remove('bi-star');
+                    stars[i].classList.add('bi-star-fill');
+                }
+            });
+        });
+    });
+</script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
