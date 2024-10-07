@@ -46,3 +46,5 @@ bootstrap/cache/
 # Ignore local server files
 Homestead.yaml
 Homestead.json
+
+/config/config.php
