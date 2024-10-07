@@ -18,14 +18,15 @@ class ReviewRepository{
 
     public function createReview($username, $rating, $comment): bool{
 
-        $sql = "INSERT INTO reviews (username, rating, comment, timestamp) VALUES (:username, :rating, :comment, :timestamp)";
+        $sql = "INSERT INTO reviews (username, rating, comment, created_at) VALUES (:username, :rating, :comment, :created_at)";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([
             ':username' => htmlspecialchars($username),
             ':rating' => $rating,
             ':comment' => htmlspecialchars($comment),
-            ':timestamp' => date('Y-m-d H:i:s')
+            ':created_at' => date('Y-m-d H:i:s')
         ]);
+        return true;
     }
 
     public function getAllReviews($rating = '', $limit = 10, $offset = 0){

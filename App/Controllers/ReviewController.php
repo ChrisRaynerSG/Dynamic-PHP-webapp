@@ -28,4 +28,25 @@ class ReviewController{
         require "../App/Views/Reviews.php";
     }
 
+    public function submit() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $username = $_POST['name'] ?? '';
+            $rating = (int)$_POST['rating'] ?? 0;
+            $comment = $_POST['comment'] ?? '';
+
+            if (!empty($username) && $rating >= 1 && $rating <= 5 && !empty($comment)) {
+                $success = $this->reviewRepository->createReview($username, $rating, $comment);
+                if ($success) {
+                    header('Location: /reviews?success=1');
+                    exit;
+                } else {
+                    $error = "An error occurred while submitting your review. Please try again.";
+                }
+            } else {
+                $error = "Please fill out all fields correctly.";
+            }
+            require "../App/Views/Reviews.php";
+        }
+    }
+
 }

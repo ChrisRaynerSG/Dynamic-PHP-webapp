@@ -124,7 +124,7 @@ $error = $error ?? '';
         <?php if (!empty($error)): ?>
             <div class="alert alert-danger"><?= htmlspecialchars($error) ?></div>
         <?php endif; ?>
-        <form method="POST" action="/review/create">
+        <form method="POST" action="/reviews/submit">
             <div class="mb-3">
                 <label for="name" class="form-label">Your Name</label>
                 <input type="text" class="form-control" id="name" name="name" required maxlength="100" value="<?= isset($_POST['name']) ? htmlspecialchars($_POST['name']) : '' ?>">
@@ -137,7 +137,7 @@ $error = $error ?? '';
                     <?php endfor; ?>
                 </div>
                 <!-- Hidden input to store the selected rating value -->
-                <input type="hidden" name="rating" id="rating" required>
+                <input type="hidden" name="rating" id="ratingInput" required value="<?= isset($_POST['rating']) ? htmlspecialchars($_POST['rating']) : '' ?>">
             </div>
             <div class="mb-3">
                 <label for="comment" class="form-label">Your Review</label>
@@ -147,7 +147,32 @@ $error = $error ?? '';
         </form>
     </div>
 </div>
-</div>
+                    </div>
+
+<script>
+    // JavaScript to handle star rating click events
+    document.addEventListener('DOMContentLoaded', function() {
+        const stars = document.querySelectorAll('.star-rating i');
+        const ratingInput = document.getElementById('ratingInput');
+
+        stars.forEach(star => {
+            star.addEventListener('click', function() {
+                const rating = this.getAttribute('data-rating');
+                ratingInput.value = rating; // Set the value of the hidden rating input
+
+                // Update star appearance based on selection
+                stars.forEach(s => s.classList.remove('bi-star-fill'));
+                stars.forEach(s => s.classList.add('bi-star'));
+
+                // Fill the stars up to the selected rating
+                for (let i = 0; i < rating; i++) {
+                    stars[i].classList.remove('bi-star');
+                    stars[i].classList.add('bi-star-fill');
+                }
+            });
+        });
+    });
+</script>
 
 <footer class="bg-light text-center text-lg-start">
     <div class="container p-4">
@@ -169,33 +194,6 @@ $error = $error ?? '';
         &copy; 2024 Rayner Lodge. All Rights Reserved.
     </div>
 </footer>
-
-<script>
-    // JavaScript to handle star rating click events
-    document.addEventListener('DOMContentLoaded', function() {
-        const stars = document.querySelectorAll('.star-rating i');
-        const ratingInput = document.getElementById('rating');
-
-        stars.forEach(star => {
-            star.addEventListener('click', function() {
-                const rating = this.getAttribute('data-rating');
-
-                // Update the hidden input with the selected rating
-                ratingInput.value = rating;
-
-                // Remove 'bi-star-fill' class from all stars
-                stars.forEach(s => s.classList.remove('bi-star-fill'));
-                stars.forEach(s => s.classList.add('bi-star'));
-
-                // Add 'bi-star-fill' class to all stars up to the selected rating
-                for (let i = 0; i < rating; i++) {
-                    stars[i].classList.remove('bi-star');
-                    stars[i].classList.add('bi-star-fill');
-                }
-            });
-        });
-    });
-</script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
