@@ -12,6 +12,7 @@
     <title>Rayner Lodge</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="/Assets/Css/home.css" rel="stylesheet">
 </head>
 <body>
 
@@ -51,21 +52,21 @@
     </div>
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <img src="/static/images/waltonpierfront.jpg" class="d-block w-100" alt="Caravan Image 1">
+            <img src="/Assets/Images/lodgeoutsidepic1.jpg" class="d-block w-100 h-100" alt="Caravan Image 1">
             <div class="carousel-caption d-none d-md-block">
                 <h5>Welcome to Our Beautiful Lodge</h5>
                 <p>Enjoy your stay on the seaside.</p>
             </div>
         </div>
         <div class="carousel-item">
-            <img src="/static/images/main_bedroom.jpg" class="d-block w-100" alt="Caravan Image 2">
+            <img src="/Assets/Images/insidepic1.jpg" class="d-block w-100 h-100" alt="Caravan Image 2">
             <div class="carousel-caption d-none d-md-block">
                 <h5>Book Now for an Unforgettable Experience</h5>
                 <p>Fully furnished and equipped, perfect for families or couples.</p>
             </div>
         </div>
         <div class="carousel-item">
-            <img src="/static/images/waltonpierfront.jpg" class="d-block w-100" alt="Caravan Image 3">
+            <img src="/Assets/Images/waltonpierfront.jpg" class="d-block w-100 h-100" alt="Caravan Image 3">
             <div class="carousel-caption d-none d-md-block">
                 <h5>Explore Nearby Attractions</h5>
                 <p>Find the best local spots and make the most of your holiday.</p>
@@ -95,7 +96,7 @@
             <a href="#" class="btn btn-primary">Learn More</a>
         </div>
         <div class="col-lg-6">
-            <img src="https://via.placeholder.com/600x400" class="img-fluid" alt="Caravan Exterior">
+            <img src="/Assets/Images/outsidesmallpic.jpg" class="img-fluid" alt="Caravan Exterior">
         </div>
     </div>
 </section>
