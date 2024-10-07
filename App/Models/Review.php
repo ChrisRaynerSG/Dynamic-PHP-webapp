@@ -11,6 +11,5 @@ class Review{
     private $timestamp;
 
     public function __construct(){
-    
     }
 }

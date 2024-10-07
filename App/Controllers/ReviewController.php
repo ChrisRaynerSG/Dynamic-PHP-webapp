@@ -4,16 +4,28 @@ namespace App\Controllers;
 
 use App\Database\Database;
 use App\Models\ReviewModel;
+use App\Repositories\ReviewRepository;
 
 class ReviewController{
 
-    private $reviewModel;
+    private $reviewRepository;
 
     public function __construct(){
-        $database = new Database();
+        $this->reviewRepository = new ReviewRepository();
     }
 
     public function index(){
+
+        $limit = 10;
+        $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+        $page = max($page, 1);
+
+        $ratingFilter = isset($_GET['rating']) ? $_GET['rating'] : '';
+
+        $reviews = $this->reviewRepository->getAllReviews($ratingFilter, $limit, ($page-1)*$limit);
+        $totalPages = $this->reviewRepository->getReviewCount($ratingFilter);
+        $totalPages = ceil($totalPages / $limit);
+
         require "../App/Views/Reviews.php";
     }
 

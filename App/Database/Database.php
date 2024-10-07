@@ -15,6 +15,7 @@ class Database{
     private $pdo;
 
     public function __construct(){
+
         $this->host = getenv('DB_HOST');
         $this->database = getenv('DB_NAME');
         $this->username = getenv('DB_USER');
@@ -25,6 +26,7 @@ class Database{
     public function connect(){
         if($this->pdo === null){
             try{
+                echo "Host: {$this->host}, Port: {$this->port}, DB: {$this->database}, User: {$this->username}, Pass: " . ($this->password ? 'YES' : 'NO') . "<br>";
                 $dsn = "mysql:host={$this->host};port={$this->port};dbname={$this->database};charset=utf8mb4";
                 $this->pdo = new PDO($dsn, $this->username, $this->password);
                 $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); //change error mode to throw an exception rather than being silent, hopefully this will help catch issues!
