@@ -18,34 +18,9 @@ $error = $error ?? '';
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">Rayner Lodge Rental</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="/">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="book.php">Book Now</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/reviews">Reviews</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="directions.php">Directions</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="about.php">About the Place</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<?php
+include('Includes/Navbar.php');
+?>
 
 <div class="container my-5">
     <h2 class="mb-4">Customer Reviews</h2>
@@ -174,26 +149,9 @@ $error = $error ?? '';
     });
 </script>
 
-<footer class="bg-light text-center text-lg-start">
-    <div class="container p-4">
-        <div class="row">
-            <div class="col-lg-6 mb-4 mb-lg-0">
-                <h5>Contact Us</h5>
-                <p>Email: <a href="mailto:lisajrayner@aol.com">lisajrayner@aol.com</a></p>
-                <p>Phone: <a href="tel:+447834600060">07834 600060</a></p>
-            </div>
-            <div class="col-lg-6 text-lg-end">
-                <h5>Follow Us</h5>
-                <a href="#" class="me-3"><i class="bi bi-facebook" style="font-size: 1.5rem;"></i></a>
-                <a href="#" class="me-3"><i class="bi bi-twitter" style="font-size: 1.5rem;"></i></a>
-                <a href="#"><i class="bi bi-instagram" style="font-size: 1.5rem;"></i></a>
-            </div>
-        </div>
-    </div>
-    <div class="text-center p-3 bg-dark text-white">
-        &copy; 2024 Rayner Lodge. All Rights Reserved.
-    </div>
-</footer>
+<?php
+include('Includes/Footer.php');
+?>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
